@@ -1,4 +1,5 @@
 BASE_URL = `http://localhost:3000/`
+
 const headers = {
   "Content-Type": "application/json",
   "Accepts": "application/json"
@@ -12,6 +13,16 @@ const Adapter = {
     	headers: headers,
     	body: JSON.stringify(object)
     }).then(resp => resp.json())
+  },
+
+  getNested: function(filter, id, pluralModel) {
+    return fetch(`${BASE_URL}${filter}/${id}/${pluralModel}`)
+      .then(resp => resp.json())
+  },
+
+  get: function(pluralModel) {
+    return fetch(`${BASE_URL}${pluralModel}`)
+      .then(resp => resp.json())
   },
 
   update: function(pluralModel, id, object) {
