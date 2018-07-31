@@ -1,34 +1,31 @@
-// // DELETE
-// fetch(`http://localhost:3000/projects/#{id}`, {
-// 	method: 'DELETE',
-// 	headers: {
-// 		"Content-Type": "application/json",
-// 		"Accepts": "application/json"
-// 	}})
-//
-// // CREATE
-// fetch('http://localhost:3000/projects', {
-// 	method: 'POST',
-// 	headers: {
-// 		"Content-Type": "application/json",
-// 		"Accepts": "application/json"
-// 	},
-// 	body: JSON.stringify({
-// 		name: 'fake',
-//     description: 'fake',
-//     url: 'fake.com',
-//     language_id: 18
-//   })
-// })
-//
-// fetch('http://localhost:3000/users', {
-// 	method: 'POST',
-// 	headers: {
-// 		"Content-Type": "application/json",
-// 		"Accepts": "application/json"
-// 	},
-// 	body: JSON.stringify({
-// 		name: "mark",
-// 		experience_level: 1
-//   })
-// })
+BASE_URL = `http://localhost:3000/`
+const headers = {
+  "Content-Type": "application/json",
+  "Accepts": "application/json"
+}
+
+const Adapter = {
+
+  create: function(pluralModel, object) {
+    return fetch(`${BASE_URL}${pluralModel}`, {
+    	method: 'POST',
+    	headers: headers,
+    	body: JSON.stringify(object)
+    }).then(resp => resp.json())
+  },
+
+  update: function(pluralModel, id, object) {
+    return fetch(`${BASE_URL}${pluralModel}/${id}`, {
+      method: 'PATCH',
+      headers: headers,
+      body: JSON.stringify(object)
+    }).then(resp => resp.json())
+  },
+
+  destroy: function(pluralModel, id) {
+    return fetch(`${BASE_URL}${pluralModel}/${id}`, {
+    	method: 'DELETE',
+    	headers: headers
+    })
+  }
+}
