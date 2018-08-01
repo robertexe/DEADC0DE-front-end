@@ -1,22 +1,22 @@
-ul {
+/* ul {
   -webkit-padding-start: 10%;
   padding: 0 0 0 12%;
 }
 
 .sidenav {
-    height: auto; /* Full-height: remove this if you want "auto" height */
-    width: 10%; /* Set the width of the sidebar */
-    position: sticky; /* Fixed Sidebar (stay in place on scroll) */
+    height: auto; Full-height: remove this if you want "auto" height
+    width: 10%; /* Set the width of the sidebar
+    position: sticky; /* Fixed Sidebar (stay in place on scroll)
     position: -webkit-sticky;
-    z-index: 1; /* Stay on top */
-    top: 46px; /* Stay at the top */
+    z-index: 1; /* Stay on top
+    top: 46px; /* Stay at the top
     left: 0;
-    background-color: white; /* Black */
-    overflow-x: hidden; /* Disable horizontal scroll */
+    background-color: white; /* Black
+    overflow-x: hidden; /* Disable horizontal scroll
     margin-bottom: 0;
 }
 
-/* The navigation menu links */
+/* The navigation menu links
 .sidenav li {
   font-size: 1.2vw;
   padding: 1%;
@@ -25,7 +25,7 @@ ul {
   display: block;
 }
 
-/* When you mouse over the navigation links, change their color */
+/* When you mouse over the navigation links, change their color 
 .sidenav li:hover {
     color: #f1f1f1;
-}
+} */
