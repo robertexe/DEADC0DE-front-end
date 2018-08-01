@@ -11,15 +11,18 @@ body {
   margin: 0 auto;
 }
 
+.navbar {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+}
+
 .navbar ul {
   list-style-type: none;
   margin: 0 auto;
   padding: 0;
   overflow: hidden;
   background-color: black;
-  position: -webkit-sticky; /* Safari */
-  position: sticky;
-  top: 0;
 }
 
 .navbar li {
