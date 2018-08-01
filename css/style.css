@@ -1,9 +1,7 @@
 html, body {margin:0px; padding: 0px;}
 
-
-
-.right {float: right !important;}
 /* Image zoom on hover + Overlay colour */
+
 .parent {
     width: 80%;
     margin: 20px;
@@ -52,13 +50,6 @@ html, body {margin:0px; padding: 0px;}
     background-color: rgba(52,73,94,0.75);
 }
 
-/* Media Queries */
-@media screen and (max-width: 960px) {
-    .parent {width: 100%; margin: 20px 0px}
-        .wrapper {padding: 20px 20px;}
-}
-
-
 .child.bg-1 img {
   width: 50%;
   margin-top: 5%;
@@ -75,7 +66,18 @@ html, body {margin:0px; padding: 0px;}
   margin: 0 0 3% 0;
 }
 
-#logo {height: 80px; margin-left: 20px;}
+#language-card-container {
+  transition: 1s;
+  text-align: center;
+}
+
+#language-card-container.slide-away {
+  transition: 2s ease;
+  -webkit-transition: 2s ease;
+  margin-left: -200%;
+  float: left;
+  margin-bottom: 20%;
+}
 
 #language-cards {
     padding: 50px 50px;

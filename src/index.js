@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', init)
 
 
-
 function init() {
+
   const navBar = document.querySelector('.navigation-bar')
   const languageList = document.querySelector('#language-list')
   const languageCards = document.querySelector('#language-cards')
@@ -15,11 +15,27 @@ function init() {
   banner.addEventListener('click', handleDeadcodeGifClick)
 
   Adapter.get('languages')
-    .then(json => {
-      // renderLanguages(json.data)
-      renderLanguageCards(json.data)
-    })
+    .then(json => renderLanguageCards(json.data))
 
+
+  function handleDeadcodeGifClick(e) {
+    if(e.clientX > 500 && e.clientX < 940 && e.clientY < 120) {
+      projectCardContainer.innerHTML = ""
+      languageCardContainer.classList.remove("slide-away")
+    }
+  }
+
+  function handleLanguageCardClick(e) {
+    if(e.target.classList.contains("language-card")) {
+      languageCardContainer.classList.add("slide-away")
+
+      let header = makeProjectsHeader(e)
+      projectCardContainer.innerHTML += header
+
+      Adapter.getNested("languages", e.target.dataset.languageId, "projects")
+        .then(json => renderProjectCards(json.data))
+    }
+  }
 
   function handleNavBarScroll(e) {
     if (window.pageYOffset >= 170) {
@@ -29,37 +45,21 @@ function init() {
     }
   }
 
-  function handleLanguageCardClick(e) {
-    if(e.target.classList.contains("language-card")) {
-      languageCardContainer.style.display = "none"
-      let header = makeProjectsHeader(e)
-      projectCardContainer.innerHTML += header
-
-      Adapter.getNested("languages", e.target.dataset.languageId, "projects")
-        .then(json => renderProjectCards(json.data))
-    }
+  function makeLanguageCard(language) {
+    let attributes = language.attributes
+    return `<div class='col-md-3'>
+              <div class="parent">
+                <div class="child bg-1 language-card" data-language-id=${language.id}>
+                  <img src="${attributes.icon}">
+                  <p class="language-card" data-language-id=${language.id}>${attributes.name}</p>
+                </div>
+              </div>
+            </div>`
   }
 
-  function handleDeadcodeGifClick(e) {
-    if(e.clientX > 500 && e.clientX < 940 && e.clientY < 120) {
-      projectCardContainer.innerHTML = ""
-      languageCardContainer.style.display = "inline"
-    }
+  function makeLanguageCards(languages) {
+    return languages.map(makeLanguageCard).join('')
   }
-  //
-  // function makeLanguageTemplate(language) {
-  //   let attributes = language.attributes
-  //   return  `<li data-language_id="${language.id}" data-icon="${attributes.icon}">${attributes.name}(${attributes.projectcount}) </li>`
-  // }
-  //
-  // function makeLanguageTemplates(languages) {
-  //   return languages.map(language => makeLanguageTemplate(language)).join('')
-  // }
-  //
-  // function renderLanguages(languages) {
-  //   let template = makeLanguageTemplates(languages)
-  //   languageList.innerHTML += template
-  // }
 
   function makeProjectCard(project) {
     let attributes = project.attributes
@@ -81,33 +81,18 @@ function init() {
     return projects.map(makeProjectCard).join('')
   }
 
-  function renderProjectCards(projects) {
-    let template = makeProjectCards(projects)
-    projectCardContainer.innerHTML += template
-  }
-
   function makeProjectsHeader(e) {
     return `<div class="projects-header"><h1>${e.target.innerText}</h1></div>`
-  }
-
-  function makeLanguageCard(language) {
-    let attributes = language.attributes
-    return `<div class='col-md-4'>
-              <div class="parent">
-                <div class="child bg-1 language-card" data-language-id=${language.id}>
-                  <img src="${attributes.icon}">
-                  <p class="language-card" data-language-id=${language.id}>${attributes.name}</p>
-                </div>
-              </div>
-            </div>`
-  }
-
-  function makeLanguageCards(languages) {
-    return languages.map(makeLanguageCard).join('')
   }
 
   function renderLanguageCards(languages) {
     let template = makeLanguageCards(languages)
     languageCards.innerHTML += template
   }
+
+  function renderProjectCards(projects) {
+    let template = makeProjectCards(projects)
+    projectCardContainer.innerHTML += template
+  }
+
 }
