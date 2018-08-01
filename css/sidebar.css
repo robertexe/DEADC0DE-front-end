@@ -1,6 +1,6 @@
 ul {
   -webkit-padding-start: 10%;
-  padding: 20% 0 0 12%;
+  padding: 0 0 0 12%;
 }
 
 .sidenav {
@@ -18,7 +18,7 @@ ul {
 
 /* The navigation menu links */
 .sidenav li {
-  font-size: 1.05rem;
+  font-size: 1.2vw;
   padding: 1%;
   text-decoration: none;
   color: black;

@@ -26,7 +26,17 @@ body {
 }
 
 .navbar li {
+  margin-right: 20px;
+  float: right;
+}
+
+.navbar li.left {
+  margin-left: 10px;
   float: left;
+}
+
+.navbar li.left a:hover {
+  background-color: black;
 }
 
 .navbar li a {
