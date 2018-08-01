@@ -6,8 +6,10 @@ function init() {
   const navBar = document.querySelector('.navigation-bar')
   const languageList = document.querySelector('#language-list')
   const languageCardContainer = document.querySelector('#language-card-container')
+  const projectCardContainer = document.querySelector('#project-card-container')
 
   window.addEventListener('scroll', handleNavBarScroll)
+  document.addEventListener('click', handleLanguageCardClick)
 
   Adapter.get('languages')
     .then(json => {
@@ -24,26 +26,33 @@ function init() {
     }
   }
 
-  function makeLanguageTemplate(language) {
-    let attributes = language.attributes
-    return  `<li data-language_id="${language.id}" data-icon="${attributes.icon}">${attributes.name}(${attributes.projectcount}) </li>`
+  function handleLanguageCardClick(e) {
+    if(e.target.classList.contains("language-card")) {
+      Adapter.getNested("languages", e.target.dataset.languageId, "projects")
+        .then()
+    }
   }
-
-  function makeLanguageTemplates(languages) {
-    return languages.map(language => makeLanguageTemplate(language)).join('')
-  }
-
-  function renderLanguages(languages) {
-    let template = makeLanguageTemplates(languages)
-    languageList.innerHTML += template
-  }
+  //
+  // function makeLanguageTemplate(language) {
+  //   let attributes = language.attributes
+  //   return  `<li data-language_id="${language.id}" data-icon="${attributes.icon}">${attributes.name}(${attributes.projectcount}) </li>`
+  // }
+  //
+  // function makeLanguageTemplates(languages) {
+  //   return languages.map(language => makeLanguageTemplate(language)).join('')
+  // }
+  //
+  // function renderLanguages(languages) {
+  //   let template = makeLanguageTemplates(languages)
+  //   languageList.innerHTML += template
+  // }
 
   function makeLanguageCard(language) {
     let attributes = language.attributes
     return `<div class="parent">
-              <div class="child bg-1">
+              <div class="child bg-1 language-card" data-language-id=${language.id}>
                 <img src="${attributes.icon}">
-                <a href="#" data-language_id=${language.id}>${attributes.name}</a>
+                <p class="language-card" data-language-id=${language.id}>${attributes.name}</p>
               </div>
             </div>`
   }

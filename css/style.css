@@ -18,7 +18,8 @@ html, body {margin:0px; padding: 0px;}
     width: 45%;
     margin: 20px;
     height: 300px;
-    border: 1px solid purple;
+    border: 1px solid black;
+    border-radius: 5%;
     overflow: hidden;
     position: relative;
     float: left;
@@ -41,7 +42,7 @@ html, body {margin:0px; padding: 0px;}
 
 
 
-#language-card-container a {
+#language-card-container p {
     display: none;
     font-size: 35px;
     color: #ffffff !important;
@@ -72,7 +73,7 @@ html, body {margin:0px; padding: 0px;}
     display: block;
 }
 
-.parent:hover a, .parent:focus a {
+#language-card-container .parent:hover p, .parent:focus p {
     display: block;
 		text-decoration: none;
 }
