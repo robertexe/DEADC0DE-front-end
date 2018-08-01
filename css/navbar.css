@@ -11,13 +11,13 @@ body {
   margin: 0 auto;
 }
 
-.navbar {
+.navigation-bar {
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
 }
 
-.navbar ul {
+.navigation-bar ul {
   list-style-type: none;
   margin: 0 auto;
   padding: 0;
@@ -25,21 +25,21 @@ body {
   background-color: black;
 }
 
-.navbar li {
+.navigation-bar li {
   margin-right: 20px;
   float: right;
 }
 
-.navbar li.left {
+.navigation-bar li.left {
   margin-left: 10px;
   float: left;
 }
 
-.navbar li.left a:hover {
+.navigation-bar li.left a:hover {
   background-color: black;
 }
 
-.navbar li a {
+.navigation-bar li a {
   display: block;
   color: white;
   text-align: center;
@@ -47,11 +47,11 @@ body {
   text-decoration: none;
 }
 
-.navbar li a:hover {
+.navigation-bar li a:hover {
   background-color: #111;
 }
 
-.navbar .active {
+.navigation-bar .active {
   background-color: #4CAF50;
 }
 
