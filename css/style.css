@@ -1,28 +1,17 @@
 html, body {margin:0px; padding: 0px;}
 
 
-#logo {height: 80px; margin-left: 20px;}
-
-#language-card-container {
-    padding: 50px 50px;
-    max-width: 1200px;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-        margin-top: 80px;
-}
 
 .right {float: right !important;}
 /* Image zoom on hover + Overlay colour */
 .parent {
-    width: 45%;
+    width: 80%;
     margin: 20px;
-    height: 300px;
+    height: 80%;
     border: 1px solid black;
     border-radius: 5%;
     overflow: hidden;
     position: relative;
-    float: left;
     display: inline-block;
     cursor: pointer;
 }
@@ -38,28 +27,6 @@ html, body {margin:0px; padding: 0px;}
     transition: all .5s;
 }
 
-/* Several different images */
-
-
-
-#language-card-container p {
-    display: none;
-    font-size: 35px;
-    color: #ffffff !important;
-    font-family: sans-serif;
-    text-align: center;
-    margin: auto;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    height: 50px;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-
 
 .parent:hover .child, .parent:focus .child {
     -ms-transform: scale(1.2);
@@ -73,10 +40,6 @@ html, body {margin:0px; padding: 0px;}
     display: block;
 }
 
-#language-card-container .parent:hover p, .parent:focus p {
-    display: block;
-		text-decoration: none;
-}
 
 .child:before {
     content: "";
@@ -101,4 +64,52 @@ html, body {margin:0px; padding: 0px;}
   margin-top: 5%;
 }
 
-.hello {display: none}
+.github-button {
+  position: absolute;
+  bottom: 7%
+}
+
+.projects-header {
+  width: 100%;
+  text-align: center;
+  margin: 0 0 3% 0;
+}
+
+#logo {height: 80px; margin-left: 20px;}
+
+#language-cards {
+    padding: 50px 50px;
+    max-width: 1200px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1%;
+}
+
+
+#language-card-container .parent:hover p, .parent:focus p {
+    display: block;
+		text-decoration: none;
+}
+
+
+#language-card-container p {
+    display: none;
+    font-size: 35px;
+    color: #ffffff !important;
+    font-family: sans-serif;
+    text-align: center;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 50px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#project-card-container {
+  padding: 5%;
+}
