@@ -12,14 +12,14 @@ function init() {
   const signIn = document.querySelector('#sign-in')
   const signInBtn = document.querySelector('#sign-in-btn')
   const currentUser = document.querySelector('#current-user')
-
-
-  let signInBtnClicked = false;
+  const explore = document.querySelector('#explore')
+  const userForm = document.querySelector('#user-form')
 
   window.addEventListener('scroll', handleNavBarScroll)
   document.addEventListener('click', handleLanguageCardClick)
   banner.addEventListener('click', handleDeadcodeGifClick)
   signInBtn.addEventListener('click', handleSignInBtnClick)
+  userForm.addEventListener('submit', handleUserFormSubmit)
 
 
 
@@ -59,27 +59,17 @@ function init() {
 
   function handleSignInBtnClick(e) {
     e.preventDefault()
-    if (signInBtnClicked) {
-      signIn.innerHTML = ""
-      signIn.classList.remove("clicked")
-      signInBtnClicked = false
-    } else {
-      renderSignIn()
-      signIn.classList.add("clicked")
-      const userForm = document.querySelector('#user-form')
-      userForm.addEventListener('submit', handleUserFormSubmit)
-      signInBtnClicked = true
-    }
+    explore.classList.toggle("moved")
+    signIn.classList.toggle("clicked")
   }
 
   function handleUserFormSubmit(e){
     e.preventDefault()
     let userName = e.target.querySelector('#prefix').value
     signIn.classList.add("submitted")
-    setTimeout(function(){
-      signIn.classList.remove("submitted", "clicked")
 
-    }, 2000)
+    setTimeout(() => { signIn.classList.remove("submitted", "clicked") }, 2000)
+
     Adapter.create('users', {name: userName}).then(json => renderUser(json.data))
   }
 
@@ -125,7 +115,6 @@ function init() {
     return `<div class="projects-header"><h1>${e.target.innerText}</h1></div>`
   }
 
-
   // Template Rendering //
 
   function renderLanguageCards(languages) {
@@ -140,16 +129,8 @@ function init() {
 
 
   function renderSignIn(){
-    signIn.innerHTML += `<div class="row">
-                          <div class="input-field">
-                            <form id="user-form" autocomplete="off">
-                            <label class="active" for="user-name"><i>Username<i></label>
-                              <input value="" id="prefix" type="text" class="validate">
-                              <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                              </button>
-                            </form>
-                          </div>
-                        </div>`
+    let template = makeSignInForm()
+    signIn.innerHTML += template
   }
 
   function renderUser(user){
