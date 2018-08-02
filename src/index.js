@@ -147,7 +147,6 @@ function init() {
     currentUser.innerText = name
     currentUser.dataset.userId = id
     signInBtn.parentElement.remove()
-
   }
 
 
