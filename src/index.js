@@ -36,7 +36,9 @@ function init() {
       user_id: userId,
       project_id: projectId
     }
-    Adapter.create("user_projects", userProject).then(console.log)
+
+    Adapter.create("user_projects", userProject)
+      .then(resp => e.target.innerText = "Added")
   }
   // Event Handlers //
 
