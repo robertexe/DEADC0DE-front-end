@@ -66,6 +66,16 @@ html, body {margin:0px; padding: 0px;}
   margin: 0 0 3% 0;
 }
 
+.row .col.s6 {
+  opacity: 1;
+  transition: 1s;
+}
+
+.row .col.s6.fade-away {
+  transition: 1s;
+  opacity: 0;
+}
+
 #language-card-container {
   transition: 1s;
   text-align: center;
@@ -155,6 +165,7 @@ html, body {margin:0px; padding: 0px;}
 }
 
 #queue-card-container {
+  min-height: 20%;
   padding: 5%;
 }
 

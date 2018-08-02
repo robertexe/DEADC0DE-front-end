@@ -27,6 +27,7 @@ function init() {
   window.addEventListener('scroll', handleNavBarScroll)
   document.addEventListener('click', handleLanguageCardClick)
   document.addEventListener('click', handleAddToQueue)
+  document.addEventListener('click', handleRemoveFromQueue)
   banner.addEventListener('click', handleDeadcodeGifClick)
   signInBtn.addEventListener('click', handleSignInBtnClick)
   userForm.addEventListener('submit', handleUserFormSubmit)
@@ -125,6 +126,16 @@ function init() {
     }
   }
 
+  function handleRemoveFromQueue(e) {
+    if(e.target.classList.contains("remove-from-queue")) {
+      let id = e.target.parentElement.dataset.userProjectId
+
+      Adapter.destroy("user_projects", id)
+      e.target.closest("div.col").classList.add("fade-away")
+      setTimeout(() => {e.target.closest("div.col").remove()}, 1100)
+    }
+  }
+
   function handleSignInBtnClick(e) {
     e.preventDefault()
     explore.classList.toggle("moved")
@@ -198,7 +209,7 @@ function init() {
             <div class="col s6">
               <div class="card">
                 <div class="card-body" style="min-height: 13rem;">
-                  <h5 class="card-title" data-user-project-id="${attributes.id}">${project.name} <button class="remove-from-queue btn">-</button></h5>
+                  <h5 class="card-title" data-user-project-id="${userProject.id}">${project.name} <button class="remove-from-queue btn">-</button></h5>
                   <p class="card-text">${project.description}</p>
                   <a href="${project.url}" class="btn btn-primary github-button" target="_blank" rel="noopener noreferrer">Go to repo</a>
                 </div>
@@ -238,7 +249,7 @@ function init() {
 
   function renderQueue(queue) {
     let template = makeQueueCards(queue)
-    queueCardContainer.innerHTML = template
+    queueCardContainer.innerHTML = `<h4>Get to work</h4>` + template
   }
 
 }
