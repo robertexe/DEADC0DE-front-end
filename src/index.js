@@ -67,10 +67,18 @@ function init() {
     e.preventDefault()
     let userName = e.target.querySelector('#prefix').value
     signIn.classList.add("submitted")
+    explore.classList.toggle("moved")
 
-    setTimeout(() => { signIn.classList.remove("submitted", "clicked") }, 2000)
+    setTimeout(() => { signIn.classList.remove("submitted", "clicked") }, 1200)
 
-    Adapter.create('users', {name: userName}).then(json => renderUser(json.data))
+    Adapter.create('users', {name: userName})
+      .then(json => {
+        if(json.name) {
+          alert(`Uh oh! Name ${json.name[0]}`)
+        } else {
+          renderUser(json.data)
+        }
+      })
   }
 
   // Template Makers //
