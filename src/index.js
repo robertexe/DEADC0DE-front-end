@@ -3,24 +3,34 @@ document.addEventListener('DOMContentLoaded', init)
 
 function init() {
 
+  // header elements //
+  const banner = document.querySelector('.banner')
+
+  // navbar elements //
   const navBar = document.querySelector('.navigation-bar')
+  const signInBtn = document.querySelector('#sign-in-btn')
+  const currentUser = document.querySelector('#current-user')
+  const queueBtn = document.querySelector('#project-queue-btn')
+
+  // main elements
+  const signIn = document.querySelector('#sign-in')
+  const explore = document.querySelector('#explore')
+  const userForm = document.querySelector('#user-form')
   const languageList = document.querySelector('#language-list')
   const languageCards = document.querySelector('#language-cards')
   const languageCardContainer = document.querySelector('#language-card-container')
   const projectCardContainer = document.querySelector('#project-card-container')
-  const banner = document.querySelector('.banner')
-  const signIn = document.querySelector('#sign-in')
-  const signInBtn = document.querySelector('#sign-in-btn')
-  const currentUser = document.querySelector('#current-user')
-  const explore = document.querySelector('#explore')
-  const userForm = document.querySelector('#user-form')
+  const queueCardContainer = document.querySelector('#queue-card-container')
 
+
+  // Event Listeners //
   window.addEventListener('scroll', handleNavBarScroll)
   document.addEventListener('click', handleLanguageCardClick)
   document.addEventListener('click', handleAddToQueue)
   banner.addEventListener('click', handleDeadcodeGifClick)
   signInBtn.addEventListener('click', handleSignInBtnClick)
   userForm.addEventListener('submit', handleUserFormSubmit)
+  queueBtn.addEventListener('click', handleQueueBtnClick)
 
 
 
@@ -28,6 +38,7 @@ function init() {
     .then(json => renderLanguageCards(json.data))
 
 
+  // Helper Functions //
 
   function createUserProject(e) {
     let userId = currentUser.dataset.userId
@@ -40,6 +51,8 @@ function init() {
     Adapter.create("user_projects", userProject)
       .then(resp => e.target.innerText = "Added")
   }
+
+
   // Event Handlers //
 
   function handleAddToQueue(e) {
@@ -55,13 +68,17 @@ function init() {
   function handleDeadcodeGifClick(e) {
     if(e.clientX > 500 && e.clientX < 940 && e.clientY < 120) {
       projectCardContainer.innerHTML = ""
+      queueCardContainer.innerHTML = ""
       languageCardContainer.classList.remove("slide-away")
     }
   }
 
   function handleLanguageCardClick(e) {
     if(e.target.classList.contains("language-card")) {
-      languageCardContainer.classList.add("slide-away")
+      languageCardContainer.classList.toggle("slide-away")
+      queueCardContainer.innerHtml = ""
+      queueCardContainer.classList.add("hidden")
+      projectCardContainer.classList.remove('hidden')
 
       let header = makeProjectsHeader(e)
       projectCardContainer.innerHTML += header
@@ -76,6 +93,35 @@ function init() {
       navBar.style.position = "fixed"
     } else {
       navBar.style.position = "sticky"
+    }
+  }
+
+  function handleQueueBtnClick(e) {
+    if(currentUser.innerText === "") {
+      alert("Sign in to see your queue")
+    } else {
+
+      if(!languageCardContainer.classList.contains("slide-away")){
+        languageCardContainer.classList.toggle("slide-away")
+      }
+
+      if(queueCardContainer.classList.contains("hidden")){
+        queueCardContainer.classList.toggle("hidden")
+      }
+
+      if(!projectCardContainer.classList.contains("hidden")) {
+        projectCardContainer.classList.add("hidden")
+        projectCardContainer.innerHTML = ""
+      }
+
+      Adapter.getNested('users', currentUser.dataset.userId, 'user_projects')
+        .then(json => {
+          if(json.data.length === 0) {
+            queueCardContainer.innerHTML = "<h4>Explore open source projects to start a queue</h4>"
+          } else {
+            renderQueue(json.data)
+          }
+        })
     }
   }
 
@@ -145,6 +191,25 @@ function init() {
     return `<div class="projects-header"><h1>${e.target.innerText}</h1></div>`
   }
 
+  function makeQueueCard(userProject) {
+    let attributes = userProject.attributes
+    let project = attributes.project
+    return `
+            <div class="col s6">
+              <div class="card">
+                <div class="card-body" style="min-height: 13rem;">
+                  <h5 class="card-title" data-user-project-id="${attributes.id}">${project.name} <button class="remove-from-queue btn">-</button></h5>
+                  <p class="card-text">${project.description}</p>
+                  <a href="${project.url}" class="btn btn-primary github-button" target="_blank" rel="noopener noreferrer">Go to repo</a>
+                </div>
+              </div>
+            </div>
+            `
+  }
+
+  function makeQueueCards(queue) {
+    return queue.map(userProject => makeQueueCard(userProject)).join("")
+  }
   // Template Rendering //
 
   function renderLanguageCards(languages) {
@@ -158,12 +223,12 @@ function init() {
   }
 
 
-  function renderSignIn(){
+  function renderSignIn() {
     let template = makeSignInForm()
     signIn.innerHTML += template
   }
 
-  function renderUser(user){
+  function renderUser(user) {
     let id = user.id
     let name = user.attributes.name
     currentUser.innerText = name
@@ -171,5 +236,9 @@ function init() {
     signInBtn.parentElement.remove()
   }
 
+  function renderQueue(queue) {
+    let template = makeQueueCards(queue)
+    queueCardContainer.innerHTML = template
+  }
 
 }

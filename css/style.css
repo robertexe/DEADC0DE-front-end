@@ -117,6 +117,13 @@ html, body {margin:0px; padding: 0px;}
   padding: 5%;
 }
 
+#project-card-container.hidden {
+  height: 0;
+  width: 0;
+  margin: 0;
+  padding: 0;
+}
+
 #sign-in{
   right: 4%;
   position: absolute;
@@ -145,4 +152,15 @@ html, body {margin:0px; padding: 0px;}
   padding-right: 40%;
   transition: 2s;
   -webkit-transition: 2s;
+}
+
+#queue-card-container {
+  padding: 5%;
+}
+
+#queue-card-container.hidden {
+  height: 0;
+  width: 0;
+  margin: 0;
+  padding: 0;
 }
