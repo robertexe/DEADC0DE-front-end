@@ -18,6 +18,9 @@ function init() {
     .then(json => renderLanguageCards(json.data))
 
 
+
+  // Event Handlers //
+
   function handleDeadcodeGifClick(e) {
     if(e.clientX > 500 && e.clientX < 940 && e.clientY < 120) {
       projectCardContainer.innerHTML = ""
@@ -44,6 +47,9 @@ function init() {
       navBar.style.position = "sticky"
     }
   }
+
+
+  // Template Makers //
 
   function makeLanguageCard(language) {
     let attributes = language.attributes
@@ -84,6 +90,9 @@ function init() {
   function makeProjectsHeader(e) {
     return `<div class="projects-header"><h1>${e.target.innerText}</h1></div>`
   }
+
+
+  // Template Rendering //
 
   function renderLanguageCards(languages) {
     let template = makeLanguageCards(languages)
