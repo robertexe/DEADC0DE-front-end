@@ -17,6 +17,7 @@ function init() {
 
   window.addEventListener('scroll', handleNavBarScroll)
   document.addEventListener('click', handleLanguageCardClick)
+  document.addEventListener('click', handleAddToQueue)
   banner.addEventListener('click', handleDeadcodeGifClick)
   signInBtn.addEventListener('click', handleSignInBtnClick)
   userForm.addEventListener('submit', handleUserFormSubmit)
@@ -28,7 +29,26 @@ function init() {
 
 
 
+  function createUserProject(e) {
+    let userId = currentUser.dataset.userId
+    let projectId = e.target.parentElement.dataset.projectId
+    let userProject = {
+      user_id: userId,
+      project_id: projectId
+    }
+    Adapter.create("user_projects", userProject).then(console.log)
+  }
   // Event Handlers //
+
+  function handleAddToQueue(e) {
+    if(e.target.classList.contains("add-to-queue")) {
+      if(currentUser.innerText === ""){
+        alert("Sign in to start a queue")
+      } else {
+        createUserProject(e)
+      }
+    }
+  }
 
   function handleDeadcodeGifClick(e) {
     if(e.clientX > 500 && e.clientX < 940 && e.clientY < 120) {
@@ -106,7 +126,7 @@ function init() {
               <div class="col s6">
                 <div class="card">
                   <div class="card-body" style="min-height: 13rem;">
-                    <h5 class="card-title">${attributes.name}</h5>
+                    <h5 class="card-title" data-project-id="${project.id}">${attributes.name} <button class="add-to-queue btn">+</button></h5>
                     <p class="card-text">${attributes.description}</p>
                     <a href="${attributes.url}" class="btn btn-primary github-button" target="_blank" rel="noopener noreferrer">Go to repo</a>
                   </div>
