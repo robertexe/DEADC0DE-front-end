@@ -9,10 +9,19 @@ function init() {
   const languageCardContainer = document.querySelector('#language-card-container')
   const projectCardContainer = document.querySelector('#project-card-container')
   const banner = document.querySelector('.banner')
+  const signIn = document.querySelector('#sign-in')
+  const signInBtn = document.querySelector('#sign-in-btn')
+  const currentUser = document.querySelector('#current-user')
+
+
+  let signInBtnClicked = false;
 
   window.addEventListener('scroll', handleNavBarScroll)
   document.addEventListener('click', handleLanguageCardClick)
   banner.addEventListener('click', handleDeadcodeGifClick)
+  signInBtn.addEventListener('click', handleSignInBtnClick)
+
+
 
   Adapter.get('languages')
     .then(json => renderLanguageCards(json.data))
@@ -48,12 +57,37 @@ function init() {
     }
   }
 
+  function handleSignInBtnClick(e) {
+    e.preventDefault()
+    if (signInBtnClicked) {
+      signIn.innerHTML = ""
+      signIn.classList.remove("clicked")
+      signInBtnClicked = false
+    } else {
+      renderSignIn()
+      signIn.classList.add("clicked")
+      const userForm = document.querySelector('#user-form')
+      userForm.addEventListener('submit', handleUserFormSubmit)
+      signInBtnClicked = true
+    }
+  }
+
+  function handleUserFormSubmit(e){
+    e.preventDefault()
+    let userName = e.target.querySelector('#prefix').value
+    signIn.classList.add("submitted")
+    setTimeout(function(){
+      signIn.classList.remove("submitted", "clicked")
+
+    }, 2000)
+    Adapter.create('users', {name: userName}).then(json => renderUser(json.data))
+  }
 
   // Template Makers //
 
   function makeLanguageCard(language) {
     let attributes = language.attributes
-    return `<div class='col-md-3'>
+    return `<div class='col m4'>
               <div class="parent">
                 <div class="child bg-1 language-card" data-language-id=${language.id}>
                   <img src="${attributes.icon}">
@@ -71,7 +105,7 @@ function init() {
     let attributes = project.attributes
     let icon = attributes.language.icon
     return `
-              <div class="col-sm-6">
+              <div class="col s6">
                 <div class="card">
                   <div class="card-body" style="min-height: 13rem;">
                     <h5 class="card-title">${attributes.name}</h5>
@@ -103,5 +137,29 @@ function init() {
     let template = makeProjectCards(projects)
     projectCardContainer.innerHTML += template
   }
+
+
+  function renderSignIn(){
+    signIn.innerHTML += `<div class="row">
+                          <div class="input-field">
+                            <form id="user-form" autocomplete="off">
+                            <label class="active" for="user-name"><i>Username<i></label>
+                              <input value="" id="prefix" type="text" class="validate">
+                              <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                              </button>
+                            </form>
+                          </div>
+                        </div>`
+  }
+
+  function renderUser(user){
+    let id = user.id
+    let name = user.attributes.name
+    currentUser.innerText = name
+    currentUser.dataset.userId = id
+    signInBtn.parentElement.remove()
+
+  }
+
 
 }
