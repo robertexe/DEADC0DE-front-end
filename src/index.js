@@ -31,6 +31,7 @@ function init() {
   document.addEventListener('click', handleAddToQueue)
   document.addEventListener('click', handleRemoveFromQueue)
   document.addEventListener('click', handleViewComments)
+  document.addEventListener('submit', handleNewCommentFormSubmit)
   banner.addEventListener('click', handleDeadcodeGifClick)
   signInBtn.addEventListener('click', handleSignInBtnClick)
   userForm.addEventListener('submit', handleUserFormSubmit)
@@ -124,6 +125,31 @@ function init() {
     }
   }
 
+  function handleNewCommentFormSubmit(e) {
+    if(e.target.classList.contains("new-comment-form")) {
+      e.preventDefault()
+      if (currentUser.innerText === "") {
+        alert("sign in to add  acomment")
+      } else {
+        let userId = currentUser.dataset.userId
+        let postId = e.target.closest('.card').dataset.postId
+        let content = e.target.firstElementChild.value
+        e.target.firstElementChild.value = ""
+
+        Adapter.create('comments', { user_id: userId, content: content, post_id: postId })
+          .then(json => {
+            let comment = json.comment
+            let postCard = document.querySelector(`[data-post-id="${comment.post_id}"]`)
+            let template = makeCommentTemplate(comment)
+            let commentList = postCard.querySelector('.comments')
+            let lastComment = commentList.lastElementChild.previousElementSibling
+
+            lastComment.outerHTML += template
+          })
+      }
+    }
+  }
+
   function handleQueueBtnClick(e) {
     if(currentUser.innerText === "") {
       alert("Sign in to see your queue")
@@ -195,9 +221,10 @@ function init() {
   function handleViewComments(e) {
     if(e.target.classList.contains('view-comments-link')) {
       e.preventDefault()
+      let commentList = e.target.closest(".card-body").querySelector('.comments')
+
       e.target.innerText === "hide comments" ? e.target.innerText = "view comments" : e.target.innerText = "hide comments"
 
-      let commentList = e.target.closest(".card-body").querySelector('.comments')
       commentList.classList.toggle('hidden-comments')
       commentList.classList.toggle('show-comments')
     }
@@ -235,14 +262,24 @@ function init() {
               <div class="card-body" style="min-height: 13rem;">
                 <h5 class="card-title">${post.title}</h5>
                 <p class="card-text">${post.content}</p>
+
                 <div>
                   <a href="#comments"><p class="view-comments-link">view comments</p></a>
                 </div>
+
                 <ul class="hidden-comments comments">
                   <h6><strong>Comments:</strong></h6>
                   ${commentsTemplate}
+                  <li class="borderless">
+                    <form class="new-comment-form" autocomplete="off">
+                      <input type="text" name="new-comment-content">
+                      <button type="submit" class="btn">submit comment</button>
+                    </form>
+                  </li>
                 </ul>
-                <a href="${post.repo_link}" class="btn btn-primary github-button" target="_blank" rel="noopener noreferrer">Go to repo</a>
+
+                <a href="${post.repo_link}" class="btn btn-primary github-button post-go-to-repo" target="_blank" rel="noopener noreferrer">Go to repo</a>
+
               </div>
             </div>`
   }

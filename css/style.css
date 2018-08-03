@@ -207,6 +207,7 @@ ul.show-comments {
   padding: 1%;
   border-bottom-style: solid;
   margin: 5%;
+  margin-bottom: 7%;
 }
 
 ul.comments li {
@@ -216,4 +217,13 @@ ul.comments li {
   padding: 1%;
   border-radius: 1%;
   margin: 2%;
+}
+
+ul.comments li.borderless {
+  border: none;
+}
+
+a.post-go-to-repo {
+  position: absolute;
+  bottom: 1em;
 }
