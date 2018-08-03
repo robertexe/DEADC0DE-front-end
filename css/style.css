@@ -227,3 +227,27 @@ a.post-go-to-repo {
   position: absolute;
   bottom: 1em;
 }
+
+div#help-form-container {
+  transition: 1.5s;
+  padding: 10%;
+  max-height: auto;
+}
+
+div#help-form-container.hidden {
+  transition: 1.5s;
+  padding: 0;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+}
+
+div#help-form-container h6.hidden#help-form-message {
+  opacity: 0;
+  transition: 2s;
+}
+
+div#help-form-container h6#help-form-message {
+  opacity: 1;
+  transition: 2s;
+}

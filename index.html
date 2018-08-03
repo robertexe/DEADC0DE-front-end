@@ -25,9 +25,10 @@
   <div class="navigation-bar">
     <ul>
       <!-- <li class="left"><a>Open Source Projects</a></li> -->
+      <li><a href="#get-help" id="help-btn">Get Help</a></li>
       <li><a href="#project-queue" id="project-queue-btn">Project Queue</a></li>
       <li><a href="#forum" id="forum-btn">Forum</a></li>
-      <li><a href="#sign-in" id="sign-in-btn">Sign-in</a></li>
+      <li><a href="#" id="sign-in-btn">Sign In</a></li>
       <li id="current-user"></li>
     </ul>
   </div>
@@ -41,10 +42,28 @@
     <div class="row">
       <div class="input-field">
         <form id="user-form" autocomplete="off">
-        <label class="active" for="user-name"><i>Username</i></label>
+          <label class="active" for="user-name"><i>Username</i></label>
           <input value="" id="prefix" type="text" class="validate">
-          <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-          </button>
+          <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="help-form-container" class="hidden">
+    <h6 class="hidden" id="help-form-message">Go to the forum to see your question</h6>
+    <div class="row">
+      <div class="input-field">
+        <form id="help-form" autocomplete="off">
+          <input type="text" value="" id="new-post-title">
+          <label class="active" for="new-post-title"><i>Issue</i></label>
+          <input type="text" value="" id="new-post-content">
+          <label class="active" for="new-post-content"><i>Description</i></label>
+          <input type="text" value="" id="new-post-repo-link">
+          <label class="active" for="repo-link"><i>Github Link</i></label>
+          <br>
+          <br>
+          <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
         </form>
       </div>
     </div>

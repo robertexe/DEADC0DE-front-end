@@ -12,6 +12,7 @@ function init() {
   const currentUser = document.querySelector('#current-user')
   const queueBtn = document.querySelector('#project-queue-btn')
   const forumBtn = document.querySelector('#forum-btn')
+  const helpBtn = document.querySelector('#help-btn')
 
   // main elements
   const signIn = document.querySelector('#sign-in')
@@ -23,6 +24,9 @@ function init() {
   const projectCardContainer = document.querySelector('#project-card-container')
   const queueCardContainer = document.querySelector('#queue-card-container')
   const forumContainer = document.querySelector('#forum-container')
+  const helpFormContainer = document.querySelector('#help-form-container')
+  const helpForm = document.querySelector("#help-form")
+  const helpFormMessage = document.querySelector('#help-form-message')
 
 
   // Event Listeners //
@@ -37,6 +41,8 @@ function init() {
   userForm.addEventListener('submit', handleUserFormSubmit)
   queueBtn.addEventListener('click', handleQueueBtnClick)
   forumBtn.addEventListener('click', handleForumBtnClick)
+  helpBtn.addEventListener('click', handleHelpBtnClick)
+  helpForm.addEventListener('submit', handleHelpFormSubmit)
 
 
 
@@ -78,6 +84,10 @@ function init() {
       forumContainer.innerHTML = ""
       forumContainer.classList.add("hidden")
       languageCardContainer.classList.remove("slide-away")
+
+      if(!helpFormContainer.classList.contains("hidden")){
+        helpFormContainer.classList.toggle("hidden")
+      }
     }
   }
 
@@ -96,10 +106,62 @@ function init() {
       projectCardContainer.innerHTML = ""
     }
 
+    if(!helpFormContainer.classList.contains("hidden")){
+      helpFormContainer.classList.toggle("hidden")
+    }
+
     if(forumContainer.classList.contains("hidden")) {
       forumContainer.classList.toggle("hidden")
 
       Adapter.get('posts').then(json => renderPosts(json.posts))
+    }
+  }
+
+  function handleHelpBtnClick(e) {
+    e.preventDefault()
+
+    if(!languageCardContainer.classList.contains("slide-away")){
+      languageCardContainer.classList.toggle("slide-away")
+    }
+
+    if(!queueCardContainer.classList.contains("hidden")){
+      queueCardContainer.innerHTML = ""
+      queueCardContainer.classList.toggle("hidden")
+    }
+
+    if(!projectCardContainer.classList.contains("hidden")) {
+      projectCardContainer.classList.toggle("hidden")
+      projectCardContainer.innerHTML = ""
+    }
+
+    if(!forumContainer.classList.contains("hidden")){
+      forumContainer.classList.toggle('hidden')
+      forumContainer.innerHTML = ""
+    }
+
+    if(helpFormContainer.classList.contains('hidden')){
+      setTimeout(() =>{
+        helpFormContainer.classList.remove('hidden')
+      }, 500)
+    }
+  }
+
+  function handleHelpFormSubmit(e) {
+    e.preventDefault()
+    if (currentUser.innerText === "") {
+      alert("Sign in to post a question to the forum")
+    } else {
+      let title = e.target.querySelector("#new-post-title").value
+      let content = e.target.querySelector("#new-post-content").value
+      let repoLink = e.target.querySelector("#new-post-repo-link").value
+      let userId = currentUser.dataset.userId
+
+      Adapter.create("posts", { title: title, content: content, repo_link: repoLink, user_id: userId })
+        .then(resp => {
+          helpForm.reset()
+          helpFormMessage.classList.toggle("hidden")
+          setTimeout(() => { helpFormMessage.classList.toggle("hidden") }, 2000)
+        })
     }
   }
 
@@ -129,7 +191,7 @@ function init() {
     if(e.target.classList.contains("new-comment-form")) {
       e.preventDefault()
       if (currentUser.innerText === "") {
-        alert("sign in to add  acomment")
+        alert("Sign in to add a comment")
       } else {
         let userId = currentUser.dataset.userId
         let postId = e.target.closest('.card').dataset.postId
@@ -173,6 +235,10 @@ function init() {
         forumContainer.innerHTML = ""
       }
 
+      if(!helpFormContainer.classList.contains("hidden")){
+        helpFormContainer.classList.toggle("hidden")
+      }
+
       Adapter.getNested('users', currentUser.dataset.userId, 'user_projects')
         .then(json => {
           if(json.user_projects.length === 0) {
@@ -195,7 +261,6 @@ function init() {
   }
 
   function handleSignInBtnClick(e) {
-    e.preventDefault()
     explore.classList.toggle("moved")
     signIn.classList.toggle("clicked")
   }
