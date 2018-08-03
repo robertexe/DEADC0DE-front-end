@@ -78,7 +78,13 @@ function init() {
   }
 
   function handleDeadcodeGifClick(e) {
-    if(e.clientX > 500 && e.clientX < 940 && e.clientY < 120) {
+    debugger
+    let screenWidth = e.view.innerWidth;
+    let left = screenWidth * 0.36;
+    let right = screenWidth * 0.64;
+    let bottom = e.view.innerHeight * 0.12;
+
+    if(e.clientX > left && e.clientX < right && e.clientY < bottom) {
       projectCardContainer.innerHTML = ""
       queueCardContainer.innerHTML = ""
       forumContainer.innerHTML = ""

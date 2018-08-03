@@ -91,8 +91,7 @@
   -webkit-transition: 2s ease;
   margin-left: -200%;
   float: left;
-  margin-bottom: 20%;
-  margin-top: 10%;
+  margin-top: -200%;
 }
 
 #language-cards {
@@ -161,6 +160,7 @@
 
 #language-card-container #explore {
   transition: 2s;
+  -webkit-transition: 2s;
 }
 
 #language-card-container #explore.moved {
@@ -230,12 +230,14 @@ a.post-go-to-repo {
 
 div#help-form-container {
   transition: 1.5s;
+  -webkit-transition: 1.5s;
   padding: 10%;
   max-height: auto;
 }
 
 div#help-form-container.hidden {
   transition: 1.5s;
+  -webkit-transition: 1.5s;
   padding: 0;
   opacity: 0;
   max-height: 0;
@@ -245,9 +247,11 @@ div#help-form-container.hidden {
 div#help-form-container h6.hidden#help-form-message {
   opacity: 0;
   transition: 2s;
+  -webkit-transition: 2s;
 }
 
 div#help-form-container h6#help-form-message {
   opacity: 1;
   transition: 2s;
+  -webkit-transition: 2s;
 }

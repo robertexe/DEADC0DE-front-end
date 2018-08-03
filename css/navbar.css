@@ -10,6 +10,7 @@ body {
   background-color: black;
   margin: 0 auto;
   position: relative;
+  z-index: 100;
 }
 
 .navigation-bar {
