@@ -195,8 +195,11 @@ function init() {
   function handleViewComments(e) {
     if(e.target.classList.contains('view-comments-link')) {
       e.preventDefault()
-      console.log('click')
-      // DO STUFF HERE //
+      e.target.innerText === "hide comments" ? e.target.innerText = "view comments" : e.target.innerText = "hide comments"
+
+      let commentList = e.target.closest(".card-body").querySelector('.comments')
+      commentList.classList.toggle('hidden-comments')
+      commentList.classList.toggle('show-comments')
     }
   }
 
@@ -235,8 +238,8 @@ function init() {
                 <div>
                   <a href="#comments"><p class="view-comments-link">view comments</p></a>
                 </div>
-                <ul class="hidden-comments">
-                  <h4>Comments:</h4>
+                <ul class="hidden-comments comments">
+                  <h6><strong>Comments:</strong></h6>
                   ${commentsTemplate}
                 </ul>
                 <a href="${post.repo_link}" class="btn btn-primary github-button" target="_blank" rel="noopener noreferrer">Go to repo</a>
