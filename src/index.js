@@ -162,12 +162,16 @@ function init() {
       let repoLink = e.target.querySelector("#new-post-repo-link").value
       let userId = currentUser.dataset.userId
 
-      Adapter.create("posts", { title: title, content: content, repo_link: repoLink, user_id: userId })
+      if(title === "" || content === "" || repoLink === ""){
+        alert("Fields can't be blank")
+      } else {
+        Adapter.create("posts", { title: title, content: content, repo_link: repoLink, user_id: userId })
         .then(resp => {
           helpForm.reset()
           helpFormMessage.classList.toggle("hidden")
           setTimeout(() => { helpFormMessage.classList.toggle("hidden") }, 2000)
         })
+      }
     }
   }
 
