@@ -150,6 +150,8 @@
   opacity: 1;
   transition: 2s;
   -webkit-transition: 2s;
+  transition-property: visibility;
+	transition-duration: 2s;
 }
 
 #sign-in.submitted{
@@ -157,6 +159,7 @@
   transition: 2s;
   -webkit-transition: 2s;
 }
+
 
 #language-card-container #explore {
   transition: 2s;

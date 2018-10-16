@@ -36,7 +36,7 @@ function init() {
   document.addEventListener('click', handleRemoveFromQueue)
   document.addEventListener('click', handleViewComments)
   document.addEventListener('submit', handleNewCommentFormSubmit)
-  banner.addEventListener('click', handleDeadcodeGifClick)
+  banner.addEventListener('click', handleDeadcodeClick)
   signInBtn.addEventListener('click', handleSignInBtnClick)
   userForm.addEventListener('submit', handleUserFormSubmit)
   queueBtn.addEventListener('click', handleQueueBtnClick)
@@ -77,8 +77,7 @@ function init() {
     }
   }
 
-  function handleDeadcodeGifClick(e) {
-    debugger
+  function handleDeadcodeClick(e) {
     let screenWidth = e.view.innerWidth;
     let left = screenWidth * 0.36;
     let right = screenWidth * 0.64;

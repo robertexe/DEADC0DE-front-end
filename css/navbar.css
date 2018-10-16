@@ -5,13 +5,6 @@ body {
   margin: 0;
 }
 
-.banner {
-  text-align: center;
-  background-color: black;
-  margin: 0 auto;
-  position: relative;
-  z-index: 100;
-}
 
 .navigation-bar {
   position: -webkit-sticky; /* Safari */
@@ -57,14 +50,6 @@ body {
 
 .navigation-bar .active {
   background-color: #4CAF50;
-}
-
-#deadcode-gif {
-  width: 35%;
-  pointer-events: none;
-  cursor: default;
-  text-decoration: none;
-  color: black;
 }
 
 #current-user {

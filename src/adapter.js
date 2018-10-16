@@ -1,4 +1,5 @@
 BASE_URL = `http://localhost:3000/`
+//BASE_URL = `https://deadc0de.herokuapp.com/`
 
 const headers = {
   "Content-Type": "application/json",
