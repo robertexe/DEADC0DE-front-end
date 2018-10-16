@@ -27,6 +27,12 @@ body {
   float: right;
 }
 
+#banner {
+  font-size: 1.25rem;
+  float: left;
+  font-family: 'VT323', monospace;
+}
+
 .navigation-bar li.left {
   margin-left: 10px;
   float: left;

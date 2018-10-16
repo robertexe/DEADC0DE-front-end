@@ -3,8 +3,6 @@ document.addEventListener('DOMContentLoaded', init)
 
 function init() {
 
-  // header elements //
-  const banner = document.querySelector('.banner')
 
   // navbar elements //
   const navBar = document.querySelector('.navigation-bar')
@@ -36,7 +34,6 @@ function init() {
   document.addEventListener('click', handleRemoveFromQueue)
   document.addEventListener('click', handleViewComments)
   document.addEventListener('submit', handleNewCommentFormSubmit)
-  banner.addEventListener('click', handleDeadcodeClick)
   signInBtn.addEventListener('click', handleSignInBtnClick)
   userForm.addEventListener('submit', handleUserFormSubmit)
   queueBtn.addEventListener('click', handleQueueBtnClick)
