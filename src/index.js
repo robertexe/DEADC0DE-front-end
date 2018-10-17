@@ -175,14 +175,17 @@ function init() {
     if(e.target.classList.contains("language-card")) {
       languageCardContainer.classList.toggle("slide-away")
       projectCardContainer.classList.remove('hidden')
-
+      console.log(e)
 
       let header = makeProjectsHeader(e)
       projectCardContainer.innerHTML += header
-
-      Adapter.getNested("languages", e.target.dataset.languageId, "projects")
-        .then(json => renderProjectCards(json.projects))
+      //console.log(e.target.innerText)
+    //   Adapter.getNested("languages", e.target.dataset.languageId, "projects")
+    //     .then(json => renderProjectCards(json.projects))
+      let id = e.target.dataset.languageId
+      Adapter.create("languages", id).then(console.log)
     }
+
   }
 
   function handleNavBarScroll(e) {

@@ -26,6 +26,11 @@ const Adapter = {
       .then(resp => resp.json())
   },
 
+  getLanguageProjects: function(languageId){
+    return fetch(`${BASE_URL}languages/${languageId}`)
+    .then(resp => resp.json())
+  },
+
   update: function(pluralModel, id, object) {
     return fetch(`${BASE_URL}${pluralModel}/${id}`, {
       method: 'PATCH',
