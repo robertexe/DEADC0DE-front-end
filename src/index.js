@@ -172,21 +172,19 @@ function init() {
   }
 
   function handleLanguageCardClick(e) {
-    if(e.target.classList.contains("language-card")) {
-      languageCardContainer.classList.toggle("slide-away")
-      projectCardContainer.classList.remove('hidden')
-      console.log(e)
+     if(e.target.classList.contains("language-card")) {
+       languageCardContainer.classList.toggle("slide-away")
+       projectCardContainer.classList.remove('hidden')
 
-      let header = makeProjectsHeader(e)
-      projectCardContainer.innerHTML += header
-      //console.log(e.target.innerText)
-    //   Adapter.getNested("languages", e.target.dataset.languageId, "projects")
-    //     .then(json => renderProjectCards(json.projects))
-      let id = e.target.dataset.languageId
-      Adapter.create("languages", id).then(console.log)
-    }
 
-  }
+       let header = makeProjectsHeader(e)
+       projectCardContainer.innerHTML += header
+
+       Adapter.getNested("languages", e.target.dataset.languageId, "projects")
+         .then(json => renderProjectCards(json.projects))
+     }
+   }
+
 
   function handleNavBarScroll(e) {
     if (window.pageYOffset >= 170) {

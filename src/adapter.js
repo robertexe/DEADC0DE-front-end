@@ -1,5 +1,4 @@
 BASE_URL = `http://localhost:3000/`
-//BASE_URL = `https://deadc0de.herokuapp.com/`
 
 const headers = {
   "Content-Type": "application/json",
@@ -24,11 +23,6 @@ const Adapter = {
   get: function(pluralModel) {
     return fetch(`${BASE_URL}${pluralModel}`)
       .then(resp => resp.json())
-  },
-
-  getLanguageProjects: function(languageId){
-    return fetch(`${BASE_URL}languages/${languageId}`)
-    .then(resp => resp.json())
   },
 
   update: function(pluralModel, id, object) {
