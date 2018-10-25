@@ -1,4 +1,4 @@
-![DEADC0DE LOGO](app/assets/images/DEADCODE_FINAL.png?raw=true "DEADC0DE_FINAL")
+![DEADC0DE LOGO](DEADCODE_FINAL.png?raw=true "DEADC0DE_FINAL")
 
 # DEADC0DE (frontend)
 
